@@ -1,5 +1,4 @@
 import numpy as np
-import sys
 import skimage.color as col
 import re
 import anndata as ad
@@ -37,65 +36,66 @@ class colors(ad.AnnData):
         mean_list = self.uns['mean'].items()
         std_list = self.uns['std'].items()
         x, y = zip(*mean_list)
-        plt.plot(x, y)
-        plt.title('mean')
-        plt.savefig('mean.png')
+        fig = plt.figure()
+        ax = fig.add_subplot(121,)
+        ax.bar(x, y, width=0.4)
         x, y = zip(*std_list)
-        plt.plot(x, y)
-        plt.title('std')
-        plt.savefig('std.png')
+        ax = fig.add_subplot(122,)
+        ax.bar(x, y, width=0.4)
+        plt.title('stat')
+        plt.savefig('stat.png')
 
     def plot_hsv(self):
         color_df = self.to_df().to_numpy()
         x, y, z = np.hsplit(color_df[:, 0:3], 3)
         axistitle = var_names[0:3]
         colors = color_df[:, 12:15]
-        title = 'hsv space'
-        return plot3d(x, y, z, axistitle, colors, title)
+        return plot_space(x, y, z, axistitle, colors)
 
     def plot_yiq(self):
         color_df = self.to_df().to_numpy()
         x, y, z = np.hsplit(color_df[:, 3:6], 3)
         axistitle = var_names[3:6]
         colors = color_df[:, 12:15]
-        title = 'yip space'
-        return plot3d(x, y, z, axistitle, colors, title)
+        return plot_space(x, y, z, axistitle, colors)
 
     def plot_yuv(self):
         color_df = self.to_df().to_numpy()
         x, y, z = np.hsplit(color_df[:, 6:9], 3)
         axistitle = var_names[6:9]
         colors = color_df[:, 12:15]
-        title = 'yuv space'
-        return plot3d(x, y, z, axistitle, colors, title)
+        return plot_space(x, y, z, axistitle, colors)
 
     def plot_lab(self):
         color_df = self.to_df().to_numpy()
         x, y, z = np.hsplit(color_df[:, 9:12], 3)
         axistitle = var_names[9:12]
         colors = color_df[:, 12:15]
-        title = 'lab space'
-        return plot3d(x, y, z, axistitle, colors, title)
+        return plot_space(x, y, z, axistitle, colors, )
 
     def plot_rgb(self):
         color_df = self.to_df().to_numpy()
         x, y, z = np.hsplit(color_df[:, 12:15], 3)
         axistitle = var_names[12:15]
         colors = color_df[:, 12:15]
-        title = 'rgb space'
-        return plot3d(x, y, z, axistitle, colors, title)
+        return plot_space(x, y, z, axistitle, colors)
         # a[a.obs['theme']== a.obs['theme'].cat.categories[2],:]
 
 
-def plot3d(x, y, z, axistitle, colors, title):
+def plot_space(x, y, z, axistitle, colors):
     fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    ax.scatter(xs=x, ys=y,
-               zs=z, s=10,  c=colors,)
+    ax = fig.add_subplot(221,)
+    ax.scatter(x=x, y=y, s=10,  c=colors,)
     ax.set_xlabel(axistitle[0])
     ax.set_ylabel(axistitle[1])
-    ax.set_zlabel(axistitle[2])
-    plt.title(title)
+    ax = fig.add_subplot(222,)
+    ax.scatter(x=y, y=z, s=10,  c=colors,)
+    ax.set_xlabel(axistitle[1])
+    ax.set_ylabel(axistitle[2])
+    ax = fig.add_subplot(223,)
+    ax.scatter(x=z, y=x, s=10,  c=colors,)
+    ax.set_xlabel(axistitle[2])
+    ax.set_ylabel(axistitle[0])
     plt.show()
 
 
@@ -125,7 +125,7 @@ def file_extract(filename):
     theme_name = str(filename).split('/')[-1].split('.')[0]
     with open(filename, 'r', errors='ignore') as f:
         colors = f.readlines()
-        colors = flat(list(map(rgb16.findall, colors)))
+        colors = list(set(flat(list(map(rgb16.findall, colors)))))
     return (theme_name, colors)
 
 
@@ -137,11 +137,8 @@ def make_anndata(filename):
     return coladata
 
 
-def save_colors(pathname):
-    filenames = [pathname+'/'+i for i in os.listdir(pathname)]
+def save_colors(source_name, save_name):
+    filenames = [source_name+'/'+i for i in os.listdir(source_name)]
     coladata = ad.concat([make_anndata(i) for i in filenames])
-    save_path = pathlib.Path(sys.argv[2]+".h5ad")
+    save_path = pathlib.Path(save_name+".h5ad")
     coladata.write(save_path)
-
-
-save_colors(sys.argv[1])
