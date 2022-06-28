@@ -1,0 +1,101 @@
+##636363#636363242424
+#636363
+#989898
+#d1d1d1
+#F9F9F9
+
+#c12300
+#f8ce09
+#007700
+#007dc5
+
+#ff632e
+#ff3b9c
+#d78365
+#b488ce
+#00f6cf
+#00dbff
+#ace098
+
+
+#914a82 #ff94ff
+#984778 #ff8bff
+#9d456f #ff85ec
+#a04365 #ff82d5 
+#a2435b #ff82be
+#a34451 #ff85a8 
+
+#a14647 #ff8b92
+#9f493e #ff927d
+#9b4d36 #ff9b69
+#96502e #ffa556  
+#905427 #ffaf43 
+#8a5821 #ffb832
+
+#825c1c #ffc120
+#7a6019 #ffca0f 11
+#716318 #eed106 12 
+#686619 #d9d811
+#5e691d #c2de23
+#536b23 #a9e436 
+
+#476d2a #8ee849
+#3a6f32 #6dec5e 
+#2a703a #3eef73 18
+#127244 #00f289 19
+#00734e #00f4a0 20
+#007358 #00f5b7
+
+#007462 #00f6cf 
+#00746c #00f7e7
+#007476 #00f7fe
+#007480 #00f6ff
+#007389 #00f5ff
+#007291 #00f3ff
+
+#007199 #00f1ff -29 
+#006f9f #00eeff 
+#006ea3 #00e9fe
+#006ba6 #00e4ff
+#0068a8 #00deff
+#1f65a8 #00d7ff
+
+#3e62a7 #69cfff
+#535ea4 #a4c6ff
+#645a9f #cfbcff
+#725699 #f1b2ff
+#7e5293 #ffa8ff
+#884d8b #ff9dff
+
+
+
+red 
+yellow 
+blue
+green
+orangd
+magneta
+violet
+brown
+
+cyan
+azure
+mint
+teal
+
+#242424
+#636363
+#989898
+#d1d1d1
+#F9F9F9
+#A34451 
+#905427
+#00734D
+#006EA3
+#884d8b
+#ff85a8
+#FFAF43
+#FFCA0F
+#3eef73
+#00F1FF
+#a4c6ff
